@@ -16,6 +16,7 @@ import scheduler from "./scheduler";
 import { partition } from "lodash-es";
 import { getCommunityTreasuryMenu } from "./communityTreasury";
 import getChainSettings from "../settings";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 import getArchivedMenu from "./archived";
 import { coretimeMenu } from "./coretime";
 import { getPeopleMenu } from "./people";
@@ -76,7 +77,7 @@ export function getHomeMenu({
         (modules?.proxy || hasMultisig) && getDataMenu(),
         modules?.dap && dapMenu,
         modules?.dotusd && dotUsdMenu,
-        calendarMenu,
+        !isFeatureHidden("calendar") && calendarMenu,
         isPolkadotChain(CHAIN) && polkadotFellowshipMenu,
         votingSpace && votingMenu,
         navigationMenu,

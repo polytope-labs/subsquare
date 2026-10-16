@@ -2,6 +2,7 @@ import dynamicPopup from "next-common/lib/dynamic/popup";
 import { useState } from "react";
 import { LinkMenuItem, UnlinkMenuItem } from "./menuItems";
 import { usePost } from "next-common/context/post";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 
 const PostLinkPopup = dynamicPopup(() =>
   import("next-common/components/linkPost/postLinkPopup"),
@@ -45,6 +46,9 @@ function UnlinkMenu({ setShow }) {
 
 export default function LinkOrUnlinkMenu({ setShow }) {
   const post = usePost();
+  if (isFeatureHidden("linkPost")) {
+    return null;
+  }
   if (post?.isBoundDiscussion) {
     return <UnlinkMenu setShow={setShow} />;
   }

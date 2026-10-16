@@ -83,6 +83,9 @@ const hyperBridge = {
     democracy: false,
     council: false,
     technicalCommittee: true,
+    proxy: {
+      provider: "chain",
+    },
   }),
   integrations: {
     statescan: {
@@ -119,6 +122,7 @@ const hyperBridge = {
     mimir: true,
   },
   allowWeb2Login: false,
+  hiddenFeatures: ["calendar", "polls", "notifications", "linkPost"],
   hotMenu: {
     referenda: true,
   },

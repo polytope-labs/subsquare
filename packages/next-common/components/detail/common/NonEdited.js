@@ -10,6 +10,7 @@ import NoData from "next-common/components/noData";
 import AddressUser from "next-common/components/user/addressUser";
 import { usePost } from "next-common/context/post";
 import dynamicPopup from "next-common/lib/dynamic/popup";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 
 const PostLinkPopup = dynamicPopup(() =>
   import("../../linkPost/postLinkPopup"),
@@ -66,8 +67,12 @@ export default function NonEdited({ setIsEdit }) {
             {isAuthor && (
               <>
                 <PostEdit setIsEdit={setIsEdit} />
-                {", or link a post"}
-                <PostLink onClick={() => setShowLinkPopup(true)} />
+                {!isFeatureHidden("linkPost") && (
+                  <>
+                    {", or link a post"}
+                    <PostLink onClick={() => setShowLinkPopup(true)} />
+                  </>
+                )}
               </>
             )}
           </>
