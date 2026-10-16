@@ -8,6 +8,8 @@ const proxy = httpProxy.createProxyServer({
     port: ssrUrl.port,
   },
   changeOrigin: true,
+  // Pass the visitor's address on so the API can rate limit per visitor
+  xfwd: true,
 });
 
 export const config = {
