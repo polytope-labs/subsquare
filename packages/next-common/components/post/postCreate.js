@@ -10,6 +10,7 @@ import { Label, LabelWrapper } from "./styled";
 import { newErrorToast } from "next-common/store/reducers/toastSlice";
 import ErrorText from "next-common/components/ErrorText";
 import AdvancedForm from "next-common/components/post/advanced/form";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 import PrimaryButton from "next-common/lib/button/primary";
 import { TitleContainer } from "../styled/containers/titleContainer";
 import { useChain } from "../../context/chain";
@@ -187,14 +188,16 @@ export default function PostCreate() {
         <ErrorText>{errors?.data?.content?.[0]}</ErrorText>
       )}
 
-      <AdvancedForm
-        isAdvanced={isAdvanced}
-        setIsAdvanced={setIsAdvanced}
-        ref={advancedForm}
-        disabled={creating}
-        formValue={formValue}
-        setFormValue={setFormValue}
-      />
+      {!isFeatureHidden("polls") && (
+        <AdvancedForm
+          isAdvanced={isAdvanced}
+          setIsAdvanced={setIsAdvanced}
+          ref={advancedForm}
+          disabled={creating}
+          formValue={formValue}
+          setFormValue={setFormValue}
+        />
+      )}
 
       <ButtonWrapper>
         <WatchOnlyTooltip

@@ -1,19 +1,17 @@
 import nextApi from "next-common/services/nextApi";
 import { useEffect, useState, useMemo } from "react";
-import { useChain } from "next-common/context/chain";
 import useProfileAddress from "next-common/components/profile/useProfileAddress";
 
 function useApiPath(pallet) {
-  const chain = useChain();
   const address = useProfileAddress();
 
   const apiPath = useMemo(() => {
-    if (!pallet || !address || !chain) {
+    if (!pallet || !address) {
       return null;
     }
 
-    return `https://${chain}.subsquare.io/api/delegation/${pallet}/delegates/${address}`;
-  }, [pallet, address, chain]);
+    return `delegation/${pallet}/delegates/${address}`;
+  }, [pallet, address]);
 
   return apiPath;
 }

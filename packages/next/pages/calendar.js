@@ -9,6 +9,7 @@ import {
 import ListLayout from "next-common/components/layout/ListLayout";
 import { cn } from "next-common/utils";
 import { getServerSidePropsWithTracks } from "next-common/services/serverSide/serverSidePropsWithTracks";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 
 export default function CalendarPage() {
   const [date, setDate] = useState(new Date());
@@ -51,4 +52,9 @@ export default function CalendarPage() {
   );
 }
 
-export const getServerSideProps = getServerSidePropsWithTracks;
+export const getServerSideProps = async (context) => {
+  if (isFeatureHidden("calendar")) {
+    return { notFound: true };
+  }
+  return getServerSidePropsWithTracks(context);
+};

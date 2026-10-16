@@ -4,6 +4,7 @@ import { fetchUserSubscription } from "next-common/services/serverSide/subscript
 import Notification from "next-common/components/setting/pages/notification";
 import OnChainEventsSubscription from "next-common/components/pages/components/settings/subscription/onchainEventsSubscription";
 import { usePageProps } from "next-common/context/page";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 
 export default function NotificationPage() {
   const { ssrTimestamp } = usePageProps();
@@ -15,6 +16,9 @@ export default function NotificationPage() {
 }
 
 export const getServerSideProps = withCommonProps(async (context) => {
+  if (isFeatureHidden("notifications")) {
+    return { notFound: true };
+  }
   const { unsubscribe } = context.query;
 
   const subscription = await fetchUserSubscription(context);

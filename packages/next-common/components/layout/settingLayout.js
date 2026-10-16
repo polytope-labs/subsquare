@@ -3,6 +3,7 @@ import ListLayout from "next-common/components/layout/ListLayout";
 import { useIsWeb3User } from "next-common/context/user";
 import Chains from "next-common/utils/consts/chains";
 import { useChain } from "next-common/context/chain";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,7 +34,9 @@ export default function SettingLayout(props) {
     value: "notifications",
     url: "/settings/notifications",
   };
-  let tabs = [accountTab, notificationsTab];
+  let tabs = isFeatureHidden("notifications")
+    ? [accountTab]
+    : [accountTab, notificationsTab];
   if (!isWeb3User) {
     tabs.splice(1, 0, {
       label: "Link Address",

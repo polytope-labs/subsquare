@@ -3,6 +3,7 @@ import { SystemTip } from "@osn/icons/subsquare";
 import ChainSocialLinks from "next-common/components/chain/socialLinks";
 import { useCallback } from "react";
 import { useEnsureLogin } from "next-common/hooks/useEnsureLogin";
+import isFeatureHidden from "next-common/utils/isFeatureHidden";
 
 export function SubscribeTip() {
   const router = useRouter();
@@ -14,6 +15,10 @@ export function SubscribeTip() {
     }
     router.push("/settings/notifications");
   }, [ensureLogin, router]);
+
+  if (isFeatureHidden("notifications")) {
+    return null;
+  }
 
   return (
     <div
@@ -31,11 +36,12 @@ export function SubscribeTip() {
   );
 }
 
-export const TitleExtra = () => (
-  <div className="max-md:hidden transition-all h-[32px] w-[32px] hover:w-[224px] [&_span]:hidden [&_span]:hover:inline">
-    <SubscribeTip />
-  </div>
-);
+export const TitleExtra = () =>
+  !isFeatureHidden("notifications") && (
+    <div className="max-md:hidden transition-all h-[32px] w-[32px] hover:w-[224px] [&_span]:hidden [&_span]:hover:inline">
+      <SubscribeTip />
+    </div>
+  );
 
 export const HeadContent = () => (
   <div className="flex flex-col gap-[16px]">

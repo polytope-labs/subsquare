@@ -1,5 +1,4 @@
 import httpProxy from "http-proxy";
-import { isApiDisabled } from "next-common/api/disabledApi";
 
 const ssrUrl = new URL(process.env.NEXT_PUBLIC_BACKEND_API_END_POINT);
 const proxy = httpProxy.createProxyServer({
@@ -9,6 +8,8 @@ const proxy = httpProxy.createProxyServer({
     port: ssrUrl.port,
   },
   changeOrigin: true,
+  // Pass the visitor's address on so the API can rate limit per visitor
+  xfwd: true,
 });
 
 export const config = {
@@ -19,10 +20,6 @@ export const config = {
 };
 
 export default function handler(req, res) {
-  if (isApiDisabled(req)) {
-    res.status(404).send("Not found");
-    return;
-  }
   req.url = req.url.replace(/^\/api\//, ssrUrl.pathname);
   proxy.web(req, res, { autoRewrite: false });
 }
