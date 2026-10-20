@@ -6,7 +6,10 @@ import { useChain, useChainSettings } from "next-common/context/chain";
 import { toPrecision } from "next-common/utils";
 import { useState } from "react";
 import Duration from "next-common/components/duration";
-import { getStatescanDomain } from "next-common/utils/statescan";
+import {
+  getStatescanDomain,
+  getStatescanUrl,
+} from "next-common/utils/statescan";
 
 function EventID({ blockHeight, eventIndex, statescanDomain }) {
   const chain = useChain();
@@ -15,7 +18,7 @@ function EventID({ blockHeight, eventIndex, statescanDomain }) {
   return (
     <a
       className="text-theme500"
-      href={`https://${domain}.statescan.io/#/events/${blockHeight}-${eventIndex}`}
+      href={`${getStatescanUrl(domain)}/#/events/${blockHeight}-${eventIndex}`}
       target="_blank"
       rel="noreferrer"
     >
@@ -35,7 +38,7 @@ function ExtrinsicID({ blockHeight, extrinsicIndex, statescanDomain }) {
   return (
     <a
       className="text-theme500"
-      href={`https://${domain}.statescan.io/#/extrinsics/${blockHeight}-${extrinsicIndex}`}
+      href={`${getStatescanUrl(domain)}/#/extrinsics/${blockHeight}-${extrinsicIndex}`}
       target="_blank"
       rel="noreferrer"
     >

@@ -90,6 +90,10 @@ const hyperBridge = {
   integrations: {
     statescan: {
       domain: "nexus",
+      // Our own Statescan, when these are set at build time; otherwise the hosted nexus.statescan.io
+      url: process.env.NEXT_PUBLIC_STATESCAN_URL,
+      apiUrl: process.env.NEXT_PUBLIC_STATESCAN_API_URL,
+      graphqlUrl: process.env.NEXT_PUBLIC_STATESCAN_GRAPHQL_URL,
     },
   },
   hasMultisig: true,

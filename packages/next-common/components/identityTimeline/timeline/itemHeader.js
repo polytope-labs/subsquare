@@ -5,7 +5,10 @@ import { isNil } from "lodash-es";
 import { useChain } from "next-common/context/chain";
 import Chains from "next-common/utils/consts/chains";
 import { isCollectivesChain } from "next-common/utils/chain";
-import { getStatescanDomain } from "next-common/utils/statescan";
+import {
+  getStatescanDomain,
+  getStatescanUrl,
+} from "next-common/utils/statescan";
 
 function getDomain(chain, indexer) {
   const { blockTime } = indexer || {};
@@ -17,7 +20,7 @@ function getDomain(chain, indexer) {
   } else if (isCollectivesChain(chain)) {
     prefix = Chains.polkadot;
   }
-  return `https://${prefix}.statescan.io/#`;
+  return `${getStatescanUrl(prefix)}/#`;
 }
 
 function ExtrinsicAndEvent({ indexer }) {

@@ -7,6 +7,7 @@ import AddressUser from "next-common/components/user/addressUser";
 import { sortAddresses } from "@polkadot/util-crypto";
 import { useCallPopup } from "./context/callPopupContext";
 import { isNil } from "lodash-es";
+import { getStatescanUrl } from "next-common/utils/statescan";
 
 export function When({ height, index }) {
   const chain = useChain();
@@ -32,7 +33,7 @@ export function When({ height, index }) {
       domain = integrations?.statescan?.domain || chain;
     }
 
-    baseUrl = `https://${domain}.statescan.io/#/extrinsics`;
+    baseUrl = `${getStatescanUrl(domain)}/#/extrinsics`;
   } else if (integrations?.neckwork?.domain) {
     baseUrl = `https://${integrations.neckwork.domain}.neckwork.net/extrinsic`;
   } else if (integrations?.subscan) {

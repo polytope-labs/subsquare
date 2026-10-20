@@ -4,6 +4,7 @@ import { isNil } from "lodash-es";
 import Chains from "../../utils/consts/chains";
 import IconLink from "./iconLink";
 import { LinkStatescan } from "@osn/icons/subsquare";
+import { getStatescanUrl } from "../../utils/statescan";
 
 const statescanDomainMap = {
   [Chains.development]: "gov2",
@@ -50,7 +51,7 @@ export default function StatescanLink({
     return null;
   }
 
-  let url = `https://${domain}.statescan.io/#`;
+  let url = `${getStatescanUrl(domain)}/#`;
   if (!isNil(extrinsicIndex) || !isNil(index)) {
     url += `/extrinsics/${blockHeight}-${extrinsicIndex ?? index}`;
   } else if (!isNil(eventIndex)) {

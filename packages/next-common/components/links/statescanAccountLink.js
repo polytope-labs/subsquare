@@ -5,6 +5,7 @@ import StatescanSVG from "@osn/icons/subsquare/LinkStatescan";
 import { isAssetHubMigrated } from "next-common/utils/consts/isAssetHubMigrated";
 import { isRelayChain } from "next-common/utils/chain";
 import { useMemo } from "react";
+import { getStatescanUrl } from "next-common/utils/statescan";
 
 const statescanDomainMap = {
   [Chains.development]: "gov2",
@@ -33,7 +34,7 @@ export default function StatescanAccountLink({ address }) {
 
   return (
     <IconLink
-      href={`https://${domain}.statescan.io/#/accounts/${address}`}
+      href={`${getStatescanUrl(domain)}/#/accounts/${address}`}
       icon={<StatescanSVG className="w-5 h-5" />}
     />
   );

@@ -11,7 +11,10 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useMountedState } from "react-use";
-import { getStatescanApiDomain } from "next-common/utils/statescan";
+import {
+  getStatescanApiDomain,
+  getStatescanRestUrl,
+} from "next-common/utils/statescan";
 import Tabs from "next-common/components/tabs";
 import Loading from "next-common/components/loading";
 import AssetsTransfersHistory from "next-common/components/assethubMigrationAssets/transferHistory/index";
@@ -59,7 +62,7 @@ function RelayTransferContent({ onTotalChange }) {
     }
 
     fetch(
-      `https://${domain}-api.statescan.io/accounts/${address}/transfers?page=${
+      `${getStatescanRestUrl(domain)}/accounts/${address}/transfers?page=${
         page - 1
       }&page_size=${DEFAULT_PAGE_SIZE}`,
     )
